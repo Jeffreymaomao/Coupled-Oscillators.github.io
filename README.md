@@ -10,19 +10,21 @@ In the theoretical calculations section (`./Theoretical-Calculation/`), I have c
 
 $$
 \begin{equation}
-\begin{pmatrix}\ddot{x}_1\\\ddot{x}_2\end{pmatrix}=
+\begin{pmatrix} \ddot{x}_1\\ \ddot{x}_2\end{pmatrix}=
 \begin{pmatrix}
 \displaystyle - \frac{k_1+k_2}{m_1}	&\displaystyle  \frac{k_2}{m_1}\\ 
 \displaystyle  \frac{k_2}{m_2} &\displaystyle -\frac{k_2+k_3}{m_2}
-\end{pmatrix} \begin{pmatrix}x_1\\x_2\end{pmatrix}.
+\end{pmatrix} \begin{pmatrix}x_1 \\ x_2\end{pmatrix}.
 \end{equation}
 $$
 
- Finally, I have employed linear expansion for Eigenmodes
- $$
- \psi(t) = \sum_{i=1}^{2}C_ie^{i\omega_it}\mu_{i}
- $$
-  to compute the results and compared them with the numerical calculations.
+Finally, I have employed linear expansion for Eigenmodes
+
+$$
+\psi(t) = \sum_{i=1}^{2}C_ie^{i\omega_it}\mu_{i}
+$$
+
+to compute the results and compared them with the numerical calculations.
 ## Numerical Calculations
 For the numerical calculations (`./Numerical-Calculation/`), I have utilized Python as the programming language for computations and plotting. [Jupyter Notebook](https://jupyter.org/) has been employed as the execution environment for running the Python code.
 
