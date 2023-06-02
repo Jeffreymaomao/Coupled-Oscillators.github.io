@@ -1,9 +1,9 @@
 # Coupled Oscillators
 This Repository is for my final project in **Experiments on Fundamental Physics(II)** course at Chung Cheng University. The objective is to use [Arduino](https://www.arduino.cc/) to create an instrument for a general physics experiment. Specifically, I aim to analyze the oscillatory behavior of two objects, $m_1$ and $m_2$, under three different springs with spring constant $k_1$, $k_2$ and $k_3$ using a laser rangefinder and an ultrasonic rangefinder (as shown in the diagram).
 
-<center>
+<p align="center">
 <img width="500px" src="./Theoretical-Calculation/System-Figure/figure.svg" alt="">
-</center>
+</p>
 
 ## Theoretical Calculations
 [📄 Research Paper](./Theoretical-Calculation/Coupled-Oscillators.pdf)
