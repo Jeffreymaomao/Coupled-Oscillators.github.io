@@ -6,6 +6,8 @@ This Repository is for my final project in **Experiments on Fundamental Physics(
 </center>
 
 ## Theoretical Calculations
+[📄 Research Paper](./Theoretical-Calculation/Coupled-Oscillators.pdf)
+
 In the theoretical calculations section (`./Theoretical-Calculation/`), I have constructed the Lagrangian of the system and used the [Euler-Lagrange equations](https://en.wikipedia.org/wiki/Euler%E2%80%93Lagrange_equation) to derive the equations of motion for the objects
 
 $$
@@ -25,6 +27,8 @@ $$
 $$
 
 to compute the results and compared them with the numerical calculations.
+
+
 ## Numerical Calculations
 For the numerical calculations (`./Numerical-Calculation/`), I have utilized Python as the programming language for computations and plotting. [Jupyter Notebook](https://jupyter.org/) has been employed as the execution environment for running the Python code.
 
