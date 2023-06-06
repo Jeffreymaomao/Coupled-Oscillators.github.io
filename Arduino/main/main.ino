@@ -12,6 +12,7 @@ void setup() {
     Serial.begin(9600);
     pinMode(btn, INPUT);
     Wire.begin();
+    sensor.setAddress(0x30);
     delay(1000);
     if (!sensor.init()) {
         Serial.println("none");
