@@ -55,7 +55,7 @@ function addDataToExcel(data) {
 ------------------------------------------------- */
 const tclear = document.getElementById("clear");
 tclear.addEventListener("click", e => {
-    if (confirm("Are you sure to clean table ?")) {
+    if (confirm("Are you sure to clean table and data?")) {
         tbody.innerHTML = "";
         CSVdata = "";
     }
