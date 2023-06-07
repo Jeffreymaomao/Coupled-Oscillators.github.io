@@ -1,0 +1,124 @@
+* {
+    box-sizing: border-box;
+    position: relative;
+}
+
+html,
+body {
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+}
+
+ul {
+    padding: 0;
+    margin: 20px;
+}
+
+li {
+    list-style-type: none;
+    /*	border: 1px solid red;*/
+}
+button{
+    border: 1px black solid;
+    box-shadow: 1px 1px 3px #000;
+    background-color: #fff;
+    font-size: 15pt;
+    border-radius: 10px;
+    width: 250px;
+}
+button:hover{
+    box-shadow: 2px 2px 4px #000;
+}
+
+#selectPort {
+    background-color: #;
+}
+
+
+#graph {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 50%;
+    height: 100%;
+}
+
+#panel {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 50%;
+    height: 100%;
+    padding: 40px;
+
+    background-color: #eee;
+}
+
+#canvas {
+    position: absolute;
+}
+
+
+#panel li {
+    text-align: center;
+    padding: 10px;
+}
+
+#panel input {
+    vertical-align: middle;
+}
+
+
+#excel {
+	width: 100%;
+    border-collapse: collapse;
+    border-radius: 10px;
+}
+
+#table-container {
+    border-radius: 10px;
+    max-height: 400px;
+	overflow-x: hidden;
+	background-color: #fff;
+    overflow-y: auto;
+    
+}
+#excel th,td{
+	text-align: right;
+	padding: 8px;
+	overflow-x: scroll;
+	overflow-y: hidden;
+}
+#excel tbody td {
+	background-color: #fff;
+    border: 1px solid #ccc;
+}
+
+#excel thead{
+    position: sticky;
+    background-color: #000;
+    color: #fff;
+    top: 0;
+    z-index: 1;
+}
+
+
+
+
+
+#table-controler{
+	padding: 20px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
