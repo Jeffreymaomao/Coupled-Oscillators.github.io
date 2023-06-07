@@ -1,9 +1,14 @@
+/* ----------------------------------------------
+-------------   Amplitude button ----------------
+------------------------------------------------- */
 const amplitude = document.getElementById("amplitude");
-
 amplitude.addEventListener("input", e => {
     balls.amplitude = amplitude.value;
 })
 
+/* ----------------------------------------------
+-------------   Table Updator -------------------
+------------------------------------------------- */
 const table = document.getElementById('excel');
 const tbody = table.querySelector('tbody');
 const theadtr = table.querySelector("thead tr");
@@ -45,7 +50,9 @@ function addDataToExcel(data) {
     rowCount++;
 }
 
-
+/* ----------------------------------------------
+-------------   Table Cleaner -------------------
+------------------------------------------------- */
 const tclear = document.getElementById("clear");
 tclear.addEventListener("click", e => {
     if (confirm("Are you sure to clean table ?")) {
@@ -53,3 +60,49 @@ tclear.addEventListener("click", e => {
         CSVdata = "";
     }
 })
+/* ----------------------------------------------
+-------------   Download to CSV -------------------
+------------------------------------------------- */
+const csvDownload = document.getElementById("download");
+csvDownload.addEventListener("click",e =>{
+
+	const fileName = prompt("Download file name :");
+	if(fileName!=null){
+		const link = document.createElement('a');
+	    const blob = new Blob([CSVdata], { type: 'text/csv;charset=utf-8;' });
+	    const url = URL.createObjectURL(blob);
+	    document.body.appendChild(link);
+
+	    link.href = url;
+	    link.style.display = 'none';
+	    link.download = fileName;
+	    if(link.download==''){
+	    	let date = new Date(Date.now());
+	        dataValues = date.getFullYear()+"-"+String(date.getMonth() + 1)+"-"+date.getDate()+"-"+date.getHours()+"-"+date.getMinutes();
+	        link.download = dataValues;
+	    }
+	    link.click();
+	    document.body.removeChild(link);
+	    URL.revokeObjectURL(url);
+	}
+})
+/* ----------------------------------------------
+-------------   Record button -------------------
+------------------------------------------------- */
+const recordBTN = document.getElementById("record");
+recordBTN.addEventListener("click",e =>{
+	record = !record;
+	if(record){
+		recordBTN.innerHTML = "recording...";
+	}else{
+		recordBTN.innerHTML = "record";
+	}
+	
+	recordBTN.classList.toggle("recording");
+})
+
+
+
+
+
+

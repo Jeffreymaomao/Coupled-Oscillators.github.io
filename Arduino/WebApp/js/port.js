@@ -41,65 +41,71 @@ function Utf8ArrayToStr(array) {
     return out;
 }
 
-if('serial' in navigator){
-	
-}else{
-	console.log("The Web Serial API is NOT supported.");
-}
-// button: click to select Serial Port
+var record = false;
 var CSVdata = '';
-const selectPort = document.getElementById('selectPort');
-if(selectPort){
-	// when click, call a async function
-	selectPort.addEventListener('click', async () => {
-	    // select Port 
-	    const port = await navigator.serial.requestPort();
-	    // setting baudRate
-	    await port.open({
-	    	baudRate: 9600,
-	    	dataBits: 8,
-	    	flowControl: "none",
-	    	parity: "none",
-	    	stopBits: 2,
-	    });
+
+if('serial' in navigator){
+	const selectPort = document.getElementById('selectPort');
+	if(selectPort){
+		// when click, call a async function
+		selectPort.addEventListener('click', async () => {
+		    // select Port 
+		    const port = await navigator.serial.requestPort();
+		    // setting baudRate
+		    await port.open({
+		    	baudRate: 9600,
+		    	dataBits: 8,
+		    	flowControl: "none",
+		    	parity: "none",
+		    	stopBits: 2,
+		    });
 
 
-	    while (port.readable) {
-	    	console.log("The port is connected.");
-	    	// selectPort.remove();
-	        const reader = port.readable.getReader();
-	        try {
-	        	var dataBuffer = '';
-	            while (true) {
-	                const { value, done } = await reader.read();
-	                if (done) {
-	                    reader.releaseLock();
-	                    break;
-	                }
-	                if (value) {
-	                	var data = Utf8ArrayToStr(value);
-	                	data = data.replace(/\s\n/g, '');
-	                	if(typeof(data)==='string'){
-	                		dataBuffer += data;
-						}
-						if(dataBuffer.indexOf("#")!=-1){
-							dataBuffer = dataBuffer.replace("#","");
-							let arr = dataBuffer.split(",");
-							arr = arr.map(str => {return Number(str);});
+		    while (port.readable) {
+		    	console.log("The port is connected.");
+		    	// selectPort.remove();
+		        const reader = port.readable.getReader();
+		        try {
+		        	var dataBuffer = '';
+		            while (true) {
+		                const { value, done } = await reader.read();
+		                if (done) {
+		                    reader.releaseLock();
+		                    break;
+		                }
+		                if (value) {
+		                	var data = Utf8ArrayToStr(value);
+		                	data = data.replace(/\s\n/g, '');
+		                	if(typeof(data)==='string'){
+		                		dataBuffer += data;
+							}
+							if(dataBuffer.indexOf("#")!=-1){
+								dataBuffer = dataBuffer.replace("#","");
+								let arr = dataBuffer.split(",");
+								arr = arr.map(str => {return Number(str);});
 
-							balls.update(arr);
-							CSVdata += arr+"\n";
-							// addDataToExcel(arr);
+								/* update animation */
+								balls.update(arr);
+								/* update data */
+								if(record){
+									CSVdata += arr+"\n";
+									addDataToExcel(arr);
+								}
+								/* clear buffer */
+								dataBuffer = '';
+							}
+		                }
+		            }
+		        } catch (err) {
+		            console.log(err);
+		        }
 
-							dataBuffer = '';
-						}
-	                }
-	            }
-	        } catch (err) {
-	            console.log(err);
-	        }
+		    }
 
-	    }
-
-	});
+		});
+	}
+}else{
+	alert("This Web Serial API is NOT supported.");
 }
+
+

@@ -8,10 +8,9 @@
     <link rel="stylesheet" href="css/index.css">
 
     <script src="js/math.js" defer></script>
-    <script src="js/index.js" defer></script>
+    <script src="js/graph.js" defer></script>
     <script src="js/port.js" defer></script>
     <script src="js/panel.js" defer></script>
-    <script src="js/download.js" defer></script>
 
     <title>Read DATA</title>
 </head>
@@ -31,6 +30,9 @@
                 <label>Amplitude:</label>
                 <input type="range" id="amplitude" min="0" max="100" value="20" step="1">
             </li>
+            <li>
+                <button id="record" class="record">record</button>
+            </li>
         </ul>
         <div id="table-container">
             <table id="excel">
@@ -45,6 +47,7 @@
         <hr>
         <div id="table-controler">
         	<ul>
+                
         		<li>
         			<button id="clear">clear table</button>
         		</li>
