@@ -105,7 +105,7 @@ if('serial' in navigator){
 		});
 	}
 }else{
-	alert("This Web Serial API is NOT supported.");
+	alert("The Serial API is NOT supported.\nYour browser can not use Serial Port.");
 }
 
 
