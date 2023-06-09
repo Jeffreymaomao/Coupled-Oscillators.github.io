@@ -49,7 +49,9 @@ class Balls{
 	constructor(x=[]){
 		this.x = x;
 		this.n = x.length;
-		this.radius = 20;
+		this.x_ = new Array(this.n);
+		this.n_ = 10;
+		this.radius = 3;
 		this.amplitude = 20;
 		this.colors = ['red','blue'];
 		this.strokeStyle = "#000";
@@ -59,6 +61,7 @@ class Balls{
 	draw(){
 		/* ---- */
 		for(var i=0;i<this.n;i++){
+			/* --- Circle ---*/
 			ctx.fillStyle = this.colors[i%this.colors.length];
 			ctx.lineWidth = this.linewidth;
 			ctx.strokeStyle = this.strokeStyle;
@@ -70,11 +73,53 @@ class Balls{
 			ctx.fill();
 			ctx.stroke();
 			ctx.closePath();
+
+			/* --- line ---*/
+			ctx.beginPath();
+			ctx.moveTo(this.x_[i][0],(1+i)*canvas.height/(this.n+1))
+			for(var j=1; j<this.n_;j++){
+				ctx.lineTo(this.x_[i][j],(1+i)*canvas.height/(this.n+1))
+			}
+			ctx.stroke();
+			ctx.closePath();
 		}
 	}
 	update(x){
 		this.x = x;
-		this.n = x.length;
+		if(this.n!=x.length){
+			this.n = x.length;
+			this.x_ = new Array(this.n);
+			for(var i=0;i < this.n;i++){
+				this.x_[i] = new Array(this.n_)
+			}
+		}
+		for(var i=0;i<this.n;i++){
+			this.x_[i].pop();
+			this.x_[i].unshift(x[i]);
+		}
+	}
+}
+
+class PseudoPort{
+	constructor(Balls){
+		this.t = 0.0;
+		this.dt = 0.01;
+		setInterval(() => {
+			this.t = this.t + this.dt;
+			Balls.update([this.x1(this.t),this.x2(this.t),this.x3(this.t),this.x4(this.t)])
+		}, 10);
+	}
+	x1(t){
+		return 5*sin(5*t)*cos(3.2*t)
+	}
+	x2(t){
+		return 5*cos(6*t)*cos(4*t)
+	}
+	x3(t){
+		return 5*sin(7*t)*cos(3.2*t)
+	}
+	x4(t){
+		return 5*cos(3*t)*cos(4*t)
 	}
 }
 /** ---------------------------------------------------------------------------- */
@@ -104,5 +149,5 @@ loop();
 
 /** ---------------------------------------------------------------------------- */
 
-
+new PseudoPort(balls)
 

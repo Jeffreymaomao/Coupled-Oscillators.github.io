@@ -2,7 +2,7 @@
     font-family: "Sora Thin";
     font-style: normal;
     font-weight: 400;
-    src: url(assets/font/Sora-Thin.ttf) format('opentype');
+    src: url(./font/Sora-Thin.ttf) format('opentype');
 }
 
 * {
