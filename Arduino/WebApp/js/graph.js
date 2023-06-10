@@ -51,7 +51,7 @@ class Balls{
 		this.n = x.length;
 		this.x_ = new Array(this.n);
 		this.n_ = 10;
-		this.radius = 3;
+		this.radius = 15;
 		this.amplitude = 20;
 		this.colors = ['red','blue'];
 		this.strokeStyle = "#000";
@@ -61,25 +61,30 @@ class Balls{
 	draw(){
 		/* ---- */
 		for(var i=0;i<this.n;i++){
-			/* --- Circle ---*/
 			ctx.fillStyle = this.colors[i%this.colors.length];
-			ctx.lineWidth = this.linewidth;
 			ctx.strokeStyle = this.strokeStyle;
+			ctx.lineWidth = this.linewidth;
+			/* --- path line ---*/
 			ctx.beginPath();
-			ctx.arc(
-				center.x + this.amplitude *this.x[i],
-				(1+i)*canvas.height/(this.n+1), 
-				this.radius, 0, 2*pi);
-			ctx.fill();
+			for(var j=0; j<this.n_;j++){
+				ctx.globalAlpha = 0.1*pow(j/this.n_,0.5);
+				ctx.arc(
+					center.x + this.amplitude * this.x_[i][j],
+					(1+i)*canvas.height/(this.n+1),
+					this.radius, 0, 2*pi);
+				ctx.fill();
+			}
 			ctx.stroke();
 			ctx.closePath();
 
-			/* --- line ---*/
+			/* --- Circle ---*/
+			ctx.globalAlpha = 1;
 			ctx.beginPath();
-			ctx.moveTo(this.x_[i][0],(1+i)*canvas.height/(this.n+1))
-			for(var j=1; j<this.n_;j++){
-				ctx.lineTo(this.x_[i][j],(1+i)*canvas.height/(this.n+1))
-			}
+			ctx.arc(
+				center.x + this.amplitude * this.x[i],
+				(1+i)*canvas.height/(this.n+1), 
+				this.radius, 0, 2*pi);
+			ctx.fill();
 			ctx.stroke();
 			ctx.closePath();
 		}
@@ -103,23 +108,32 @@ class Balls{
 class PseudoPort{
 	constructor(Balls){
 		this.t = 0.0;
-		this.dt = 0.01;
+		this.dt = 0.005;
+		this.format = 100;
 		setInterval(() => {
 			this.t = this.t + this.dt;
-			Balls.update([this.x1(this.t),this.x2(this.t),this.x3(this.t),this.x4(this.t)])
+			const arr = [this.x1(this.t),this.x2(this.t),this.x3(this.t),this.x4(this.t)]
+			/* update animation */
+			Balls.update(arr);
+			/* update data */
+			if(record){
+				CSVdata += arr+"\n";
+				addDataToExcel(arr);
+			}
+
 		}, 10);
 	}
 	x1(t){
-		return 5*sin(5*t)*cos(3.2*t)
+		return floor(20*sin(5*t)*cos(3.2*t)*this.format)/this.format
 	}
 	x2(t){
-		return 5*cos(6*t)*cos(4*t)
+		return floor(20*cos(6*t)*cos(4*t)*this.format)/this.format
 	}
 	x3(t){
-		return 5*sin(7*t)*cos(3.2*t)
+		return floor(20*sin(7*t)*cos(3.2*t)*this.format)/this.format
 	}
 	x4(t){
-		return 5*cos(3*t)*cos(4*t)
+		return floor(20*cos(3*t)*cos(4*t)*this.format)/this.format
 	}
 }
 /** ---------------------------------------------------------------------------- */
@@ -150,4 +164,3 @@ loop();
 /** ---------------------------------------------------------------------------- */
 
 new PseudoPort(balls)
-

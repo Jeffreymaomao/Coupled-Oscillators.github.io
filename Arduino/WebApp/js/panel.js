@@ -93,9 +93,9 @@ const recordBTN = document.getElementById("record");
 recordBTN.addEventListener("click",e =>{
 	record = !record;
 	if(record){
-		recordBTN.innerHTML = "recording...";
+		recordBTN.innerHTML = "Recording...";
 	}else{
-		recordBTN.innerHTML = "record";
+		recordBTN.innerHTML = "Record";
 	}
 	
 	recordBTN.classList.toggle("recording");

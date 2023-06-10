@@ -43,13 +43,11 @@ button:hover{
 .record{
 /*    https://icolorpalette.com/color/98fb98*/
     color: #fff;
-    text-shadow: 0px 0px 3px #000;
+    text-shadow: 0px 0px 2px #000,0px 0px 2px #000,0px 0px 2px #000;
     background-color: #98FB98;
 }
 
 .recording{
-    color: #fff;
-    text-shadow: 0px 0px 3px #000;
     background-color: #fa9898;
 }
 
@@ -94,16 +92,14 @@ button:hover{
 #excel {
 	width: 100%;
     border-collapse: collapse;
-    border-radius: 10px;
 }
 
 #table-container {
     border-radius: 10px;
     max-height: 300px;
-	overflow-x: hidden;
 	background-color: #fff;
+	overflow-x: auto;
     overflow-y: auto;
-    
 }
 #excel th,td{
 	text-align: right;
