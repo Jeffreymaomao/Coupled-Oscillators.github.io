@@ -15,7 +15,7 @@ VL53L0X sensor2;
 // button 
 int const btn = 8;
 
-void setID() {
+bool setID() {
     sensor1.setAddress(LOX1_ADDRESS);
     sensor2.setAddress(LOX2_ADDRESS);
     // all reset
@@ -33,7 +33,7 @@ void setID() {
     // initing LOX1
     if(!sensor1.init()) {
         Serial.println("\nFailed to boot first VL53L0X");
-        while(true){};
+        return 0;
     }
     delay(10);
 
@@ -44,8 +44,9 @@ void setID() {
     //initing LOX2
     if(!sensor2.init()) {
         Serial.println("\nFailed to boot second VL53L0X"); 
-        while(true){};
+        return 0;
     }
+    return 1;
 }
 void setup() {
     Serial.begin(9600);
@@ -55,13 +56,19 @@ void setup() {
     pinMode(SHT_LOX1, OUTPUT);
     pinMode(SHT_LOX2, OUTPUT);
 
-    Serial.println("Shutdown pins inited...");
-    digitalWrite(SHT_LOX1, LOW);
-    digitalWrite(SHT_LOX2, LOW);
-    Serial.println("Both in reset mode...(pins are low)");
-    Serial.println("Starting set ID ----------- ");
-    setID();
-    Serial.println("Ending set ID -------------");
+    while(true){
+        Serial.println("Shutdown pins inited...");
+        digitalWrite(SHT_LOX1, LOW);
+        digitalWrite(SHT_LOX2, LOW);
+        Serial.println("Both in reset mode...(pins are low)");
+        Serial.println("\n\n\nset ID ----------- ");
+        if(!setID()){
+            delay(5000);
+            continue;
+        }
+        Serial.println("end set ID -------------");
+    }
+    
 }
 
 void loop() {
