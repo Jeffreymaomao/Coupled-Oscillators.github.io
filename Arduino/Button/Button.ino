@@ -1,5 +1,5 @@
 #include <Wire.h>
-int const btn = 8;
+int const btn = A1;
 void setup() {
     Serial.begin(9600);
     pinMode(btn, INPUT);

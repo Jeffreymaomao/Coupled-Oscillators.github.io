@@ -106,34 +106,43 @@ class Balls{
 }
 
 class PseudoPort{
-	constructor(Balls){
+	constructor(Balls,n){
+		this.n = n;
 		this.t = 0.0;
 		this.dt = 0.005;
 		this.format = 100;
+		this.omega1 = new Array(n);
+		this.omega2 = new Array(n);
+		this.phi = new Array(n);
+		this.amp = new Array(n);
+		this.arr = new Array(n);
+
+		for(var i=0;i<n;i++){
+			this.omega1[i] = 5*(random()+0.5);
+			this.omega2[i] = 3*(random()+0.5);
+			this.phi[i] = pi*(random()+0.5);
+			this.amp[i] = 10*(random()+0.5);
+		}
+
+
+
 		setInterval(() => {
 			this.t = this.t + this.dt;
-			const arr = [this.x1(this.t),this.x2(this.t),this.x3(this.t),this.x4(this.t)]
+			for(var i=0; i<this.n; i++){
+				this.arr[i] = this.x(this.amp[i], this.omega1[i], this.omega2[i], this.phi[i]);
+			}
 			/* update animation */
-			Balls.update(arr);
+			Balls.update(this.arr);
 			/* update data */
 			if(record){
-				CSVdata += arr+"\n";
-				addDataToExcel(arr);
+				CSVdata += this.arr+"\n";
+				addDataToExcel(this.arr);
 			}
 
 		}, 10);
 	}
-	x1(t){
-		return floor(20*sin(5*t)*cos(3.2*t)*this.format)/this.format
-	}
-	x2(t){
-		return floor(20*cos(6*t)*cos(4*t)*this.format)/this.format
-	}
-	x3(t){
-		return floor(20*sin(7*t)*cos(3.2*t)*this.format)/this.format
-	}
-	x4(t){
-		return floor(20*cos(3*t)*cos(4*t)*this.format)/this.format
+	x(A,omg1,omg2,phi){
+		return floor(A*cos(omg1*this.t)*cos(omg2*this.t+phi)*this.format)/this.format
 	}
 }
 /** ---------------------------------------------------------------------------- */
@@ -163,4 +172,4 @@ loop();
 
 /** ---------------------------------------------------------------------------- */
 
-new PseudoPort(balls)
+// const psedoPort = new PseudoPort(balls,4)
