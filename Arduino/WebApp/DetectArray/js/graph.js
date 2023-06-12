@@ -50,13 +50,12 @@ class Balls{
 		this.x = x;
 		this.n = x.length;
 		this.x_ = new Array(this.n);
-		this.n_ = 10;
+		this.n_ = 5;
 		this.radius = 15;
 		this.amplitude = 20;
-		this.colors = ['red','blue'];
+		this.colors = ['red','blue']
 		this.strokeStyle = "#000";
 		this.linewidth = 1;
-		this.duration = 500;
 	}
 	draw(){
 		/* ---- */
@@ -67,7 +66,7 @@ class Balls{
 			/* --- path line ---*/
 			ctx.beginPath();
 			for(var j=0; j<this.n_;j++){
-				ctx.globalAlpha = 0.1*pow(j/this.n_,0.5);
+				ctx.globalAlpha = 0.05*pow(j/this.n_,0.5);
 				ctx.arc(
 					center.x + this.amplitude * this.x_[i][j],
 					(1+i)*canvas.height/(this.n+1),
@@ -172,4 +171,4 @@ loop();
 
 /** ---------------------------------------------------------------------------- */
 
-// const psedoPort = new PseudoPort(balls,4)
+// const psedoPort = new PseudoPort(balls,10)

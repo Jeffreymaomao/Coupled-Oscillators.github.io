@@ -16,10 +16,15 @@
 #define Trig_pin2 4
 #define Echo_pin2 5
 
+double time0 = 0.0;
 double distance1_laser0 = 0.0;
 double distance2_laser0 = 0.0; 
 double distance1_sound0 = 0.0; 
 double distance2_sound0 = 0.0;
+double distance1_laser = 0.0;
+double distance2_laser = 0.0; 
+double distance1_sound = 0.0; 
+double distance2_sound = 0.0;
 
 Adafruit_VL53L0X sensor1 = Adafruit_VL53L0X();
 Adafruit_VL53L0X sensor2 = Adafruit_VL53L0X();
@@ -46,29 +51,36 @@ void setup() {
 }
 
 void loop() {
+
     bool press = digitalRead(Button_pin);
-    sensor1.rangingTest(&measure1, false);
-    sensor2.rangingTest(&measure2, false);
-    double distance1_laser = measure1.RangeMilliMeter/10.0;
-    double distance2_laser = measure2.RangeMilliMeter/10.0;
-    double distance1_sound = distance_HC(Trig_pin1, Echo_pin1);
-    double distance2_sound = distance_HC(Trig_pin2, Echo_pin2);
+    double time = micros()/1000000.0;
+
+    // sensor1.rangingTest(&measure1, false);
+    // sensor2.rangingTest(&measure2, false);
+    // distance1_laser = measure1.RangeMilliMeter/10;
+    // distance2_laser = measure2.RangeMilliMeter/10;
+
+    distance1_sound = distance_HC(Trig_pin1, Echo_pin1);
+    distance2_sound = distance_HC(Trig_pin2, Echo_pin2);
     if(press){
+        time0 = time;
         distance1_laser0 = distance1_laser;
         distance2_laser0 = distance2_laser;
         distance1_sound0 = distance1_sound;
         distance2_sound0 = distance2_sound;
     }
-
-    Serial.print(distance1_laser - distance1_laser0); // (cm)
-    Serial.print(",");
-    Serial.print(distance2_laser - distance2_laser0); // (cm)
-    Serial.print(",");
-    Serial.print(distance1_sound - distance1_sound0); // (cm)
-    Serial.print(",");
-    Serial.print(distance2_sound - distance2_sound0); // (cm)
-    Serial.println("#");
-    delay(10);
+    String dataString = ""; 
+    dataString += time-time0; // (s)
+    dataString += ",";
+    dataString += distance1_laser - distance1_laser0; // (cm)
+    dataString += ",";
+    dataString += distance2_laser - distance2_laser0; // (cm)
+    dataString += ",";
+    dataString += distance1_sound - distance1_sound0; // (cm)
+    dataString += ",";
+    dataString += distance2_sound - distance2_sound0; // (cm)
+    dataString += "#";
+    Serial.println(dataString);
 }
 
 
