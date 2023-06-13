@@ -50,7 +50,7 @@ class Balls{
 		this.x = x;
 		this.n = x.length;
 		this.x_ = new Array(this.n);
-		this.n_ = 5;
+		this.n_ = 10;
 		this.radius = 15;
 		this.amplitude = 20;
 		this.colors = ['red','blue']
@@ -171,4 +171,4 @@ loop();
 
 /** ---------------------------------------------------------------------------- */
 
-// const psedoPort = new PseudoPort(balls,10)
+// const psedoPort = new PseudoPort(balls,4)

@@ -84,7 +84,7 @@ if('serial' in navigator){
 							if(index!=-1){
 								let arr = dataBuffer.substring(0,index).split(",");
 								arr = arr.map(str => {return Number(str);});
-								console.log(arr)
+								// console.log(arr)
 								time = arr[0]
 								arr.shift();
 								/* update animation */
