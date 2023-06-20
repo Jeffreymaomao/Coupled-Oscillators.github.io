@@ -1,0 +1,213 @@
+\documentclass[12pt]{article}%{revtex4}
+%%%%%%%%%%%%
+\setlength{\textwidth}{6.9in} \setlength{\textheight}{9.2in}
+\hoffset -2.cm \voffset -2.0cm \pagestyle{empty}
+\usepackage{bbold}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx} %插入图片的宏包
+\usepackage{float} %设置图片浮动位置的宏包
+\usepackage{subfigure} %插入多图时用子图显示的宏包
+\usepackage{physics} 
+
+%\usepackage{calrsfs}
+%\DeclareMathAlphabet{\pazocal}{OMS}{zplm}{m}{n}
+
+\usepackage{tcolorbox}
+
+%\usepackage{fontspec}
+%\usepackage{xeCJK} %引用中文字的指令集
+%\setCJKfamilyfont{kai}{標楷體}
+
+\usepackage{import}
+
+\usepackage{tikz}
+
+\begin{document}
+%\tighten
+\begin{center}
+{\Large Physics, Classical Dynamics
+
+Couple Oscillator  \#\today 
+
+---------------------------------------------------------------------------------}
+\end{center}
+	\section{System of Odinary Differential Equation}
+	%------------------------------------------------
+	\subsection{General Solution}
+	For the System
+	 \begin{equation}
+	 \begin{pmatrix}\ddot{x}_1\\\ddot{x}_2\end{pmatrix}
+	 =
+	 \begin{pmatrix}
+	 \displaystyle - \frac{k_1+k_2}{m_1}	&\displaystyle  \frac{k_2}{m_1}\\[2ex]
+	 \displaystyle  \frac{k_2}{m_2} 		&\displaystyle  -\frac{k_2+k_3}{m_2}
+	 \end{pmatrix}
+	 \begin{pmatrix}x_1\\x_2\end{pmatrix},
+	 \end{equation}
+	 in the form $\ddot{\vec{x}} = \mathcal{F} \vec{x}$, we solve the eigen problem for matrix $\mathcal{F}$
+	  \begin{equation}
+	 \left(\mathcal{F}-\lambda\mathcal{I}\right)\mu = 0,
+	 \end{equation}
+	 we obtain the eigenvalues
+	  \begin{equation}
+	 \lambda_{1,2} = \frac{\tr(\mathcal{F}) \pm \sqrt{\tr(\mathcal{F})^2-4\det({\mathcal{F}})}}{2},
+	 \end{equation}
+	 where the trace and determinant of matrix are
+	 \begin{equation}
+	 \begin{aligned}
+	 \tr(\mathcal{F}) &=-\frac{m_2k_1+\left(m_1+m_2\right)k_2+m_1k_3}{m_1m_2},\\
+	  \det(\mathcal{F}) &=\frac{k_1k_2+k_2k_3+k_3k_1}{m_1m_2}.
+	 \end{aligned}
+	 \end{equation}
+	 Also, the corresponding eigenvectors are
+	 \begin{equation}
+	\vec{\mu}_{i} = \begin{pmatrix}
+	  	\displaystyle  m_2 \lambda_{i}+ \left(k_2+k_3\right)\\
+		\displaystyle  k_2
+		\end{pmatrix},\quad i =1,2.
+	\end{equation}
+	Since the general solution for the equation $\ddot{x} = \lambda x$ is $x\left(t\right) = C_1e^{\sqrt{\lambda} t} + C_2e^{-\sqrt{\lambda} t}$, we define
+	\begin{equation}
+	\begin{aligned}
+	\omega_{i} = \pm\sqrt{\lambda_{i}},	\quad i = 1,2\\
+	\end{aligned}
+	\end{equation}
+	the general solution for this system is
+	\begin{equation}
+	\vec{x}\left(t\right) = \sum_{i=1}^{2}\left(A_{i}e^{\omega_i t}+ B_{i}e^{-\omega_i t}\right)\vec{\mu}_i.
+	\end{equation}
+	Also, we define the velocity vector
+	\begin{equation}
+	\vec{v}\left(t\right) = \frac{d\vec{x}}{dt} = \sum_{i=1}^{2}\left(A_{i}\omega_ie^{\omega_i t}-B_{i}\omega_ie^{-\omega_i t}\right)\vec{\mu}_i.
+	\end{equation}
+	%------------------------------------------------
+	\subsection{Initial Value Problem}
+	For initial state at $t=0$, we have initial position vector $\vec{x}\left(0\right)$ and initial velocity vector $\vec{v}\left(0\right)$, which are equal to
+	\begin{equation}
+	\begin{aligned}
+	\vec{x}\left(0\right) &= \sum_{i=1}^{2}\left(A_{i}+ B_{i}\right)\vec{\mu}_i,
+	\\
+	\vec{v}\left(0\right) &= \sum_{i=1}^{2}\left(A_{i}\omega_i-B_{i}\omega_i\right)\vec{\mu}_i.
+	\end{aligned}
+	\end{equation}
+	repectively. If we expand these 2 condition, we may have
+	\begin{equation}
+	\begin{aligned}
+	\vec{x}\left(0\right) &= \left(A_{1}+ B_{1}\right)\vec{\mu}_1+\left(A_{2}+ B_{2}\right)\vec{\mu}_2
+	\\
+	\vec{v}\left(0\right) &= \left(A_{1}\omega_1-B_{1}\omega_1\right)\vec{\mu}_2+\left(A_{2}\omega_2-B_{2}\omega_2\right)\vec{\mu}_2
+	\end{aligned},
+	\end{equation}
+	which can be ewwriten in matrix form
+	\begin{equation}
+	\begin{aligned}
+	\vec{x}\left(0\right) &= \begin{pmatrix}\vec{\mu}_{1}&\vec{\mu}_{2}\end{pmatrix}\begin{pmatrix}A_{1}+B_{1}\\A_{2}+B_{2}\end{pmatrix}
+	\\
+	\vec{v}\left(0\right) &= 
+	\begin{pmatrix}\vec{\mu}_{1}&\vec{\mu}_{2}\end{pmatrix}
+	\begin{pmatrix}A_{1}\omega_1-B_{1}\omega_1\\A_{2}\omega_2-B_{2}\omega_2\end{pmatrix}
+	\end{aligned}.
+	\end{equation}
+	Since we need to obtain the value of $A_{i}$ and $B_{i}$, using the same matrix to reduce equations
+	\begin{equation}
+	\begin{aligned}
+	\vec{x}\left(0\right) &= 
+	\begin{pmatrix}\vec{\mu}_{1}&\vec{\mu}_{2}\end{pmatrix}
+	\begin{pmatrix}A_{1}&B_{1}\\A_{2}&B_{2}\end{pmatrix}
+	\begin{pmatrix}1\\1\end{pmatrix}
+	\\
+	\vec{v}\left(0\right) &= 
+	\begin{pmatrix}\vec{\mu}_{1}&\vec{\mu}_{2}\end{pmatrix}
+	\begin{pmatrix}\omega_1&0\\0&\omega_2\end{pmatrix}
+	\begin{pmatrix}A_{1}&B_{1}\\A_{2}&B_{2}\end{pmatrix}
+	\begin{pmatrix}1\\-1\end{pmatrix}
+	\end{aligned}.
+	\end{equation}
+	Defining following 2 by 2 matrices in order to reduce the equation
+	\begin{equation}
+	\hat{\mu} = \begin{pmatrix}\vec{\mu}_1&\vec{\mu}_2\end{pmatrix}, \quad 
+	\hat{\omega} = \begin{pmatrix}\omega_1&0\\0&\omega_2\end{pmatrix},\quad \text{and} \quad
+	\hat{C} = \begin{pmatrix}A_{1}&B_{1}\\A_{2}&B_{2}\end{pmatrix}.
+	\end{equation}
+	Plug in, we have
+	\begin{equation}
+	\vec{x}\left(0\right) = 
+	\hat{\mu}\hat{C}
+	\begin{pmatrix}1\\1\end{pmatrix},\quad
+	\vec{v}\left(0\right) = 
+	\hat{\mu}\hat{\omega}\hat{C}
+	\begin{pmatrix}1\\-1\end{pmatrix}
+	\end{equation}
+	Applying the correponding inverse matrix for two equation, we obtain
+	\begin{equation}
+	\hat{C}\begin{pmatrix}1\\1\end{pmatrix} = \hat{\mu}^{-1}\vec{x}\left(0\right) ,\quad
+	\hat{C}\begin{pmatrix}1\\-1\end{pmatrix} = \hat{\omega}^{-1}\hat{\mu}^{-1}\vec{v}\left(0\right).
+	\end{equation}
+	Also we could stack two equation into one single matrix equation
+	\begin{equation}
+	\hat{C}\begin{pmatrix}1&1\\ 1&-1\end{pmatrix} = 
+	\begin{pmatrix}
+		\hat{\mu}^{-1}\vec{x}\left(0\right) & 
+		\hat{\omega}^{-1}\hat{\mu}^{-1}\vec{v}\left(0\right)
+	\end{pmatrix}.
+	\end{equation}
+	Applying the inverse matrix from right, solving that
+	\begin{equation}
+	\hat{C} = \frac{1}{2}
+	\begin{pmatrix}
+		\hat{\mu}^{-1}\vec{x}\left(0\right) & 
+		\hat{\omega}^{-1}\hat{\mu}^{-1}\vec{v}\left(0\right)
+	\end{pmatrix}\begin{pmatrix}1&1\\ 1&-1\end{pmatrix}.
+	\end{equation}
+	%------------------------------------------------
+	\subsection{Further Calculation}
+	From above result, given a initial condition $\vec{x}\left(0\right)$ and $\vec{v}\left(0\right)$, we colud obtain the general solution for this system, which is 
+	\begin{equation}
+	\vec{x}\left(t\right) = \sum_{i=1}^{2}\left(A_{i}e^{\omega_i t}+ B_{i}e^{-\omega_i t}\right)\vec{\mu}_i,
+	\end{equation}
+	where the coefficients can be solved by
+	\begin{equation}
+	\begin{pmatrix}A_{1}&B_{1}\\A_{2}&B_{2}\end{pmatrix} = 
+	\frac{1}{2}
+	\begin{pmatrix}
+		\hat{\mu}^{-1}\vec{x}\left(0\right) & 
+		\hat{\omega}^{-1}\hat{\mu}^{-1}\vec{v}\left(0\right)
+	\end{pmatrix}\begin{pmatrix}1&1\\ 1&-1\end{pmatrix}.
+	\end{equation}
+	After a little bit calculation, matrices $\hat{\mu}^{-1}$ and $\hat{\omega}^{-1}$ can be obtained
+	\begin{equation}
+	\begin{aligned}
+	\hat{\omega}^{-1} &= \begin{pmatrix}1/\omega_1&0\\ 0&1/\omega_2\end{pmatrix}
+	\\
+	\hat{\mu}^{-1} &= \frac{1}{k_2m_2\left(\lambda_1-\lambda_2\right)} 
+	\begin{pmatrix}
+		k_2&-m_2 \lambda_2- \left(k_2+k_3\right)\\
+		-k_2&m_2 \lambda_1+ \left(k_2+k_3\right)
+	\end{pmatrix}
+	\end{aligned}
+	\end{equation}
+
+
+	
+
+
+	
+
+
+
+
+	
+
+	
+
+	 
+
+	 
+	 
+	 
+	 
+	 
+	 
+\end{document}
+
