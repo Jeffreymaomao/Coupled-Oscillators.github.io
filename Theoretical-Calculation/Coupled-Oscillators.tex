@@ -1,0 +1,298 @@
+\documentclass[a4paper, reprint, showkeys, nofootinbib,twoside]{revtex4-1}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{mathtools}
+\usepackage{lipsum}
+\usepackage{float}
+\usepackage{subfigure}
+\usepackage{physics}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{hyperref} 
+\usepackage{import}
+\usepackage{tikz}
+\hypersetup{
+	pdftex,
+	colorlinks=true,
+	linkcolor=blue,
+	filecolor=magenta,
+	urlcolor=blue,
+	pdftitle={Article},
+	pdfauthor={Author},
+}
+
+%\usepackage{fontspec}
+%\usepackage{xeCJK} %引用中文字的指令集
+%\setCJKfamilyfont{kai}{標楷體}
+%================================================================================
+%---
+% Submission Guidelines: 
+% https://www.springer.com/journal/10714/submission-guidelines
+%---
+% Springer Nature LaTeX template
+% https://www.springernature.com/gp/authors/campaigns/latex-author-support
+%---
+%---
+% < General Relativity and Gravitation >
+% <Abstract> Please provide an abstract of 150 to 250 words
+% <Keywords> Please provide 4 to 6 keywords
+%================================================================================
+\begin{document}
+	\title{Classical Dynamics, One-Dimensional Coupled Oscillator}
+	\author{Chang Mao Yang}
+	\email[Correspondence email address: ]{jeffrey0613mao@gmail.com}
+	\affiliation{National Chung Cheng University, Department of Physics}
+	\date{\today}
+	
+	\begin{abstract}
+	This research explores the classical dynamics of a one-dimensional coupled oscillator system consisting of two masses, labeled as $m_1$ and $m_2$, interconnected by three springs with respective spring constants $k_1$, $k_2$, and $k_3$. The system's behavior is described using Lagrangian mechanics, and the equations of motion are derived by applying the Euler-Lagrange equation in matrix form. By solving the eigenvalue problem associated with the matrix equation of motion, the eigenvalues and eigenvectors are obtained, representing the natural frequencies and modes of oscillation of the system. To validate the eigenmode expansion method, a numerical solution is obtained and compared with the expanded solution using eigenmodes. The comparison illustrates that any solution of the system can be expressed as a linear combination of these eigenmodes, thereby confirming the effectiveness of the eigenmode expansion technique in describing the system's dynamics.
+	\end{abstract}
+	
+	\keywords{Coupled Oscillator, Classical Dynamics, Eigenmode Expansion, Numerical Validation}
+	
+	\maketitle
+	%=========================================
+	\section{Introduction}
+	%------------------------------------------------
+	\subsection{Problem Statement}
+	Two masses, denoted as $m_1$ and $m_2$, are connected to each other and fixed points by three springs of spring constants $k_1$, $k_2$ and $k_3$ as shown in the FIG. (\ref{fig:system}).
+	\begin{figure}[h]
+		\centering
+		\import{./}{figure.tex}
+		\caption{Coupled Oscillation System with Three Springs and Two Masses.}
+		\label{fig:system}
+        \end{figure}
+        The arrow $x_1=\vec{x}_1$ and $x_2=\vec{x}_2$ denote the displacement of each masses $m_1$ and $m_2$ in one-dimension. 
+        %------------------------------------------------
+        \subsection{Mathematical Notation}
+        Here, I will provide a detailed explanation mathematical notation used in my research.
+        \begin{enumerate}
+        	\item Vector: In this one-dimensional problem, the direction of a vector can be determined by its sign, thus the vector $\vec{v}$ is equivalent to $v$.
+        	\item Differentiation: In this research, I use Newton's notation (dot notation, fluxions) for differentiation. Therefore, we denote the first and second differentials as follows:
+		\begin{equation}
+		\frac{dv}{dt} = \dot{v} \text{ and } \frac{d^2v}{dt^2} = \ddot{v}.
+		\end{equation}
+		Please note that in this research, we only focus on the first and second differentials, so only these two notations are listed.
+        \end{enumerate}
+        %=========================================
+        \section{Small Oscillations}
+        %------------------------------------------------
+        \subsection{Lagrangian}
+        The Lagrangian of this system is given by following
+	 \begin{equation}
+        \mathcal{L}=K-V,
+	\end{equation}
+	where the total kinetic energy $K$ is the sum of the kinetic energies of all masses:
+	\begin{equation}
+	K = \frac{1}{2}m_1\dot{x}_1^2 + \frac{1}{2}m_2\dot{x}_2^2, 
+	\end{equation}
+	and the total potential energy $V$ is the sum of the potential energies of all springs:
+	\begin{equation}
+	V =\frac{1}{2}k_1\left(x_1-0\right)^2+\frac{1}{2}k_2\left(x_2-x_1\right)^2+\frac{1}{2}k_3\left(0-x_2\right)^2.
+	\end{equation}
+	Alternatively, we can express $K$ and $V$ into quadratic form, that is
+	\begin{equation}
+	\begin{aligned}
+	K &= \frac{1}{2}
+		\begin{pmatrix}\dot{x}_1&\dot{x}_2\end{pmatrix}
+		\begin{pmatrix}m_1&0\\0&m_2\end{pmatrix}
+		\begin{pmatrix}\dot{x}_1\\\dot{x}_2\end{pmatrix}
+		= \frac{1}{2}\dot{x}_i\mathcal{T}_{ij}\dot{x}_j,
+	\end{aligned}
+	\end{equation}
+	and 
+	\begin{equation}
+	\begin{aligned}
+	V &= \frac{1}{2}\left(k_1x_1^2+k_2x_2^2-2k_2x_1x_2+k_2x_1^2+k_3x_2^2\right)\\
+	&=	\begin{pmatrix}x_1&x_2\end{pmatrix}
+		\begin{pmatrix}k_1+k_2&-k_2\\-k_2&k_2+k_3\end{pmatrix}
+		\begin{pmatrix}x_1\\x_2\end{pmatrix}
+	= \frac{1}{2}x_i\mathcal{V}_{ij}x_j,
+	\end{aligned}
+	\end{equation}
+	then
+	\begin{equation}
+	\begin{aligned}
+	 \mathcal{L}= \frac{1}{2}\dot{x}_i\mathcal{T}_{ij}\dot{x}_j-\frac{1}{2}x_i\mathcal{V}_{ij}x_j
+	\end{aligned}
+	\end{equation}
+	%------------------------------------------------
+	 \subsection{Euler-Lagrange Equation}
+	 The Euler–Lagrange equation is given by
+	 \begin{equation}
+	 \frac {\partial \mathcal{L}}{\partial x_{i}}-\frac {d}{dt}\frac {\partial \mathcal{L}}{\partial \dot {x}_{i}}=0
+	 \end{equation}
+	 which gives
+	 \begin{equation}
+	 \mathcal{T}_{ij}\ddot{x}_j = -\mathcal{V}_{ij}x_j
+	 \end{equation}
+	 which is 
+	 \begin{equation}
+	 \begin{pmatrix}m_1&0\\0&m_2\end{pmatrix}
+	 \begin{pmatrix}\ddot{x}_1\\\ddot{x}_2\end{pmatrix}
+	 =
+	 -\begin{pmatrix}k_1+k_2&-k_2\\-k_2&k_2+k_3\end{pmatrix}
+	 \begin{pmatrix}\dot{x}_1\\\dot{x}_2\end{pmatrix}.
+	 \end{equation}
+	 To proceed, we simplify the equation as follows:
+	 \begin{equation}\label{eq:CD EOM}
+	 \begin{pmatrix}\ddot{x}_1\\\ddot{x}_2\end{pmatrix}
+	 =
+	 \begin{pmatrix}
+	 \displaystyle - \frac{k_1+k_2}{m_1}	&\displaystyle  \frac{k_2}{m_1}\\[2ex]
+	 \displaystyle  \frac{k_2}{m_2} 		&\displaystyle  -\frac{k_2+k_3}{m_2}
+	 \end{pmatrix}
+	 \begin{pmatrix}x_1\\x_2\end{pmatrix},
+	 \end{equation}
+	 which is the second-order ordinary differential equations in the matrix form $\ddot{x}_i = \mathcal{F}_{ij}x_j$ .
+	 %------------------------------------------------
+	 \subsection{Eigenmode of Euler-Lagrange equaiton}
+	 Then we can find the eigenvalue and eigenvector for matrix $\mathcal{F}$ in the equation (\ref{eq:CD EOM}) in matrix $\ddot{x}_i = \mathcal{F}_{ij}x_j$, that is 
+	 \begin{equation}
+	 \left(\mathcal{F}-\lambda\mathcal{I}\right)\mu = 0,
+	 \end{equation}
+	 where $\lambda$ is eigenvalue, $\mathcal{I}$ is identity matrix and $\mu$ is eigenvector.
+        %---
+	 \subsubsection{Eigenvalues}\label{subsubsec:Eigencalues}
+	 For the eigenvalue $\lambda$, determinant of matrix $\det({\mathcal{F}})=0$ gives
+	 \begin{equation}
+	 \lambda = \frac{\tr(\mathcal{F}) \pm \sqrt{\tr(\mathcal{F})^2-4\det({\mathcal{F}})}}{2},
+	 \end{equation}
+	 where the trace of matrix is
+	 \begin{equation}
+	 \begin{aligned}
+	 \tr(\mathcal{F}) &= - \left(\frac{k_1+k_2}{m_1}+\frac{k_2+k_3}{m_2}\right)\\
+	 &=-\frac{m_2k_1+\left(m_1+m_2\right)k_2+m_1k_3}{m_1m_2}
+	 \end{aligned}
+	 \end{equation}
+	 and the determinant of matrix is 
+	 \begin{equation}
+	 \begin{aligned}
+	 \det(\mathcal{F}) &= \frac{\left(k_1+k_2\right)\left(k_2+k_3\right)}{m_1m_2}-\frac{k_2^2}{m_1m_2}\\
+	 &=\frac{k_1k_2+k_2k_3+k_3k_1}{m_1m_2}.
+	 \end{aligned}
+	 \end{equation}
+	 %---
+	  \subsubsection{Eigenvectors}\label{subsubsec:Eigenvectors}
+	  For the eigenvector $\mu$, we define
+	  \begin{equation}
+	  \mu = \begin{pmatrix}\mu_1\\\mu_2\end{pmatrix}
+	  \end{equation}
+	  then equation $\left(\mathcal{F}-\lambda\mathcal{I}\right)\mu = 0$ gives 
+	   \begin{equation}
+	  \mu \propto 
+	  	\begin{pmatrix}
+	  	\displaystyle  \frac{k_2}{m_1}\\[2ex]\displaystyle \lambda + \frac{k_1+k_2}{m_1}
+		\end{pmatrix}
+	 \propto 
+	  	\begin{pmatrix}
+	  	\displaystyle  \lambda+ \frac{k_2+k_3}{m_2}\\[2ex]
+		\displaystyle \frac{k_2}{m_2}
+		\end{pmatrix}.
+	  \end{equation}
+	Both expressions are the same. Here, I took the second formula as the non-normalized eigenvector and let
+	\begin{equation}
+	\mu \propto \begin{pmatrix}
+	  	\displaystyle  m_2 \lambda+ \left(k_2+k_3\right)\\
+		\displaystyle  k_2
+		\end{pmatrix}.
+	\end{equation}
+	%---
+	\subsubsection{Eigenmode}
+	After solving the eigenvalue problem, we find that the coupled oscillation system has two eigenmodes. These eigenmodes correspond to the eigenvalues and eigenvectors we obtained earlier. The eigenvalues, denoted as 
+	\begin{equation}
+	\lambda_{1},\lambda_{2} = \frac{\tr(\mathcal{F}) \pm \sqrt{\tr(\mathcal{F})^2-4\det({\mathcal{F}})}}{2},
+	\end{equation}
+	correspond to the natural frequencies $\omega_1$, $\omega_2$ of the oscillations in the system, and 
+	\begin{equation}
+	\begin{aligned}
+	\tr(\mathcal{F}) &=-\frac{m_2k_1+\left(m_1+m_2\right)k_2+m_1k_3}{m_1m_2}
+	 \\
+	  \det(\mathcal{F}) &=\frac{k_1k_2+k_2k_3+k_3k_1}{m_1m_2}.
+	 \end{aligned}
+	\end{equation}
+	Specifically, we have
+	\begin{equation}
+	\omega_i^2 = -\lambda_i, \quad i=1,2.
+	\end{equation}
+	The corresponding eigenvectors are
+	\begin{equation}
+	\mu_i \propto \begin{pmatrix}
+	  	\displaystyle  m_2 \lambda_i^2+ \left(k_2+k_3\right)\\
+		\displaystyle  k_2
+		\end{pmatrix}, i=1,2.
+	\end{equation}
+	where the eigenvectors have not been normalized and are expressed using the "proportional to" symbol ($\propto$).
+	
+	It is worth noting that any arbitrary solution $\psi\left(t\right)$ of the system can be expressed as a linear combination of these two eigenmodes
+	\begin{equation}\label{eq:summation expansion}
+	\psi\left(t\right) = \sum_{i=1}^{2}C_i e^{i\omega_i t} \mu_i,
+	\end{equation}
+	where $\psi\left(t\right) = \begin{pmatrix}x_1\left(t\right)&x_2\left(t\right)\end{pmatrix}^T$
+	This property allows us to decompose the motion of the system into these fundamental modes and analyze their contributions individually. The eigenmodes provide a basis for understanding the behavior of the system and enable us to study its dynamics in a more simplified and structured manner.
+	\subsection{Eigenmode expansion}
+	From equation (\ref{eq:summation expansion}), we can express any arbitrary solution into 
+	\begin{equation}
+	\psi\left(t\right) = C_1e^{i\omega_1 t}\mu_1+C_2e^{i\omega_2 t}\mu_2.
+	\end{equation}
+	For the initial value $\psi\left(0\right) = \begin{pmatrix}x_1\left(0\right)&x_2\left(0\right)\end{pmatrix}^T$. We have
+	\begin{equation}
+	\psi\left(0\right) = C_1\mu_1+C_2\mu_2 
+	= \begin{pmatrix}\mu_1&\mu_2\end{pmatrix}\begin{pmatrix}C_1\\C_2\end{pmatrix}.
+	\end{equation}
+	Here, $\begin{pmatrix}\mu_1&\mu_2\end{pmatrix}$ is a 2 by 2 matrix, therefore, we could solve the coefficients by 
+	\begin{equation}
+	\begin{pmatrix}C_1\\C_2\end{pmatrix} =  \begin{pmatrix}\mu_1&\mu_2\end{pmatrix}^{-1}\psi\left(0\right).
+	\end{equation}
+	Actually, this solution is also the analytic solution of this system. Given a intial value $\psi(0)$, we have the position $x_1,x_2$ with repect to time $t$ for each masses $m_1, m_2$.
+	%=========================================
+	\section{Numerical Simulation}
+	%------------------------------------------------
+	\subsection{Differential Equations}
+	The total forces on each masses denoted $\vec{F}_1$ and $\vec{F}_2$, which can be calculated by
+	\begin{equation}
+        \begin{aligned}
+        \vec{F}_1 = -k_1\vec{x}_1-k_2\vec{x}_1+k_2\vec{x}_2
+        \\
+        \vec{F}_2 = -k_3\vec{x}_2-k_2\vec{x}_2+k_2\vec{x}_1
+        \end{aligned}.
+        \end{equation}
+        The the Newton's second law gives $\vec{F}_i = m_i\vec{a}={d^2\vec{x}_i}/{dt^2}$, where $i=1,2$, which is
+        \begin{equation}
+        \begin{aligned}
+        \displaystyle \frac{d^2\vec{x}_1}{dt^2} = \displaystyle -\frac{k_1\vec{x}_1+k_2\left(\vec{x}_1-\vec{x}_2\right)}{m_1}\\
+        \displaystyle \frac{d^2\vec{x}_2}{dt^2} = \displaystyle -\frac{k_3\vec{x}_2+k_2\left(\vec{x}_2-\vec{x}_1\right)}{m_2}
+        \end{aligned},
+        \end{equation}
+        or 
+        \begin{equation}
+        \begin{aligned}\label{eq:NT EOM}
+        \displaystyle \frac{d^2x_1}{dt^2} = \displaystyle -\frac{\left(k_1+k_2\right)x_1-k_2x_2}{m_1}\\
+        \displaystyle \frac{d^2x_2}{dt^2} = \displaystyle -\frac{\left(k_3+k_2\right)x_1-k_2x_1}{m_2}
+        \end{aligned},
+        \end{equation}
+        Solving these second-order odinary differential equations will give us the motion of two masses.
+        Take note that this result  is consistent with the equation (\ref{eq:CD EOM}).
+        %------------------------------------------------
+	\subsection{Numerical Simulations}
+	For equation (\ref{eq:NT EOM}), we could solving this system by using ordinary differential euqation. Here, I choose Runge-Kutta-Fehlberg method whith step size $dt = 0.01$. Then we could compare the result from numerical method and eigenmode expansion method. Since, for this model, the eigenmode expansion method is also the analytic solution for this model, two curves from different method must overlap each other.
+	\import{./}{numerical-result.tex}
+
+	 
+        %------------------------------------------------
+	\section{Conclusions} \label{sec:conclusions}
+	
+	%\begin{thebibliography}{4}
+		%\bibitem{Fleming}  A. Bobrinha, Revista Brasileira de Lorem Ipsum \textbf{23}, 179 (2002).
+		%\bibitem{Feynman} R. P. Feynman, R. B. Leighton and M. Sands,
+	%\end{thebibliography}
+	%------------------------------------------------
+	%\appendix*
+	%\section{Appendix} \label{sec:appendix}
+		%\lipsum[9-11]
+	
+\end{document}%文章結束

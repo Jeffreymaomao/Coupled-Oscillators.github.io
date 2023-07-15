@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=10.0">
+    <link rel="icon" type="image/x-icon" href="https://raw.githubusercontent.com/Jeffreymaomao/figure/main/fig2.ico">
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/index.css">
+
+    <script src="js/math.js" defer></script>
+    <script src="js/graph.js" defer></script>
+    <script src="js/port.js" defer></script>
+    <script src="js/panel.js" defer></script>
+
+    <title>Read DATA</title>
+</head>
+
+<body>
+    <div id="graph">
+        <div class="contianer">
+            <canvas id="canvas"></canvas>
+        </div>
+    </div>
+    <div id="panel">
+        <ul>
+            <li>
+                <button id='selectPort'>Select Serial Port</button>
+            </li>
+            <li>
+                <label>Amplitude:</label>
+                <input type="range" id="amplitude" min="0" max="100" value="20" step="1">
+            </li>
+            <li>
+                <button id="record" class="record">Record</button>
+            </li>
+        </ul>
+        <hr>
+        <div id="table-container">
+            <table id="excel">
+                <thead>
+                    <tr>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+        <div id="table-controler">
+        	<ul>
+                
+        		<li>
+        			<button id="clear">Clear Table / Data</button>
+        		</li>
+        		<li>
+        			<button id="download">Download csv</button>
+        		</li>
+        	</ul>
+        </div>
+    </div>
+</body>
+
+</html>
