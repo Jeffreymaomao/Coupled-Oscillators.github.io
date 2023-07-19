@@ -157,13 +157,15 @@ def Numerical_Model(t, k=(1.0, 1.0, 1.0), m=(1.0, 1.0), x1_i=-1, x2_i=1, v1_i=0,
     U = RKF45(F, U0, t, dt)
     return U[:,0],U[:,1],U[:,2],U[:,3] # (x1, x2, v1, v2)
 
-def Analytical_Model(t, k=(1.0, 1.0, 1.0), m=(1.0, 1.0), x1_i=-1, x2_i=1, v1_i=0, v2_i=0):
+def Analytical_Model(t, k=(1.0, 1.0, 1.0), m=(1.0, 1.0), dt=0.01, t_end=50, x1_i=-1, x2_i=1, v1_i=0, v2_i=0):
     """
     Parameters
     ----------
         t     : <time series>
         k     : (<k1>, <k2>, <k3>)
         m     : (<m1>, <m2>)
+        dt    : <time step size>
+        t_end : <end of time>
         x1_i  : <initial position of m1>
         x2_i  : <initial position of m2>
         v1_i  : <initial velocity of m1>
