@@ -44,14 +44,22 @@ function Utf8ArrayToStr(array) {
 var record = false;
 var CSVdata = '';
 var time = 0.0;
-
+var psedoPort = new PseudoPort(balls,4);
 if('serial' in navigator){
 	const selectPort = document.getElementById('selectPort');
 	if(selectPort){
 		// when click, call a async function
 		selectPort.addEventListener('click', async () => {
+			psedoPort.delete();
 		    // select Port 
-		    const port = await navigator.serial.requestPort();
+		    try {
+			    const port = await navigator.serial.requestPort();
+
+			} catch (e) {
+				psedoPort = new PseudoPort(balls,4);
+			    console.log('Request Port Error', e);
+			}
+
 		    // setting baudRate
 		    await port.open({
 		    	baudRate: 9600,
@@ -60,8 +68,6 @@ if('serial' in navigator){
 		    	parity: "none",
 		    	stopBits: 2,
 		    });
-
-
 		    while (port.readable) {
 		    	console.log("The port is connected.");
 		    	// selectPort.remove();
@@ -104,9 +110,7 @@ if('serial' in navigator){
 		        } catch (err) {
 		            console.log(err);
 		        }
-
 		    }
-
 		});
 	}
 }else{

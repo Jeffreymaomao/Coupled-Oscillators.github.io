@@ -125,7 +125,7 @@ class PseudoPort{
 		}
 
 
-		setInterval(() => {
+		this.motion = setInterval(() => {
 			this.t = this.t + this.dt;
 			for(var i=0; i<this.n; i++){
 				this.arr[i] = this.x(this.amp[i], this.omega1[i], this.omega2[i], this.phi[i]);
@@ -139,6 +139,9 @@ class PseudoPort{
 			}
 
 		}, 10);
+	}
+	delete(){
+		clearInterval(this.motion)
 	}
 	x(A,omg1,omg2,phi){
 		return floor(A*cos(omg1*this.t)*cos(omg2*this.t+phi)*this.format)/this.format
@@ -171,4 +174,5 @@ loop();
 
 /** ---------------------------------------------------------------------------- */
 
-// const psedoPort = new PseudoPort(balls,10)
+
+
